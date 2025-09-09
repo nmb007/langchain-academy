@@ -1,20 +1,27 @@
-from langchain_openai import ChatOpenAI
+from langchain_groq import ChatGroq
 from langgraph.graph import MessagesState
 from langgraph.graph import StateGraph, START, END
 from langgraph.prebuilt import ToolNode, tools_condition
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 # Tool
-def multiply(a: int, b: int) -> int:
+def multiply(a: str, b: str) -> int:
     """Multiplies a and b.
 
     Args:
         a: first int
         b: second int
     """
+    a = int(a)
+    b = int(b)
+    
     return a * b
 
 # LLM with bound tool
-llm = ChatOpenAI(model="gpt-4o")
+llm = ChatGroq(model="meta-llama/llama-4-scout-17b-16e-instruct")
 llm_with_tools = llm.bind_tools([multiply])
 
 # Node
