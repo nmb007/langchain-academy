@@ -1,40 +1,53 @@
 from langchain_core.messages import SystemMessage
 from langchain_openai import ChatOpenAI
-
+from langchain_groq import ChatGroq
 from langgraph.graph import START, StateGraph, MessagesState
 from langgraph.prebuilt import tools_condition, ToolNode
+from dotenv import load_dotenv
 
-def add(a: int, b: int) -> int:
+# Load environment variables from .env file
+load_dotenv()
+
+def add(a: str, b: str) -> int:
     """Adds a and b.
 
     Args:
         a: first int
         b: second int
     """
+    a = int(a)
+    b = int(b)
+    
     return a + b
 
-def multiply(a: int, b: int) -> int:
+def multiply(a: str, b: str) -> int:
     """Multiplies a and b.
 
     Args:
         a: first int
         b: second int
     """
+    a = int(a)
+    b = int(b)
+    
     return a * b
 
-def divide(a: int, b: int) -> float:
+def divide(a: str, b: str) -> float:
     """Divide a and b.
 
     Args:
         a: first int
         b: second int
     """
+    a = int(a)
+    b = int(b)
+    
     return a / b
 
 tools = [add, multiply, divide]
 
 # Define LLM with bound tools
-llm = ChatOpenAI(model="gpt-4o")
+llm = ChatGroq(model="meta-llama/llama-4-scout-17b-16e-instruct")
 llm_with_tools = llm.bind_tools(tools)
 
 # System message
