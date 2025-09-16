@@ -222,3 +222,5 @@ module-6/deployment/docker-compose.yml
 
 .langgraph_api/
 .DS_Store
+module-2/state_db/example.db-shm
+module-2/state_db/example.db-wal
